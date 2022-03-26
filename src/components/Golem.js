@@ -31,7 +31,7 @@ function makeIcons(colors) {
   return colors.map(x => marbleIcons[x]).join(" ")
 }
 
-const Controls = () => {
+const Golem = () => {
   const [marblePool, setMarblePool] = useState(initMarblePool);
   const [marbleAllocation, setMarbleAllocation] = useState({1: [], 2: [], 3: [], 4: [], 5: []});
 
@@ -72,11 +72,9 @@ const Controls = () => {
   const removeMarble = (event) => {
     
     const color = event.target.value
-
     // Deep copy
     var newMarblePool = [...marblePool]
     var newMarbleAllocation = JSON.parse(JSON.stringify(marbleAllocation))
-
 
     for (var i=1; i<=5; i++) {
       for (var j=0; j<newMarbleAllocation[i].length; j++) {
@@ -92,49 +90,58 @@ const Controls = () => {
   }
 
   return (    
-    <div className="Action-Grid" >
-      <div>Pool: {makeIcons(marblePool)}</div>
-      <div>
-        <Box sx={{ width: '100%', backgroundColor: 'primary.dark'}}>
-          <Grid container spacing={0} >
-          {
-            actions
-            .map(action => ([
-              <Grid key={action.id+"image"} item xs={6} >
-                  <img src={action.image} className="Action" alt='action'/>
-              </Grid>,
-              <Grid key={action.id+"marbles"} item xs={6} className="Marble">
-                  {makeIcons(marbleAllocation[action.id])}
-              </Grid>,
-          ]))}
-          </Grid>
-        </Box>
+    <div className='App'>
+      <header className="App-header">
+
+      <div className="Action-Grid" >
+        <div>Pool: {makeIcons(marblePool)}</div>
+        <div>
+          <Box sx={{ width: '100%', backgroundColor: '#ADA676'}}>
+            <Grid container spacing={0} >
+            {
+              actions
+              .map(action => ([
+                <Grid key={action.id+"image"} item xs={6} >
+                    <img src={action.image} className="Action" alt='action'/>
+                </Grid>,
+                <Grid key={action.id+"marbles"} item xs={6} className="Marble">
+                    {makeIcons(marbleAllocation[action.id])}
+                </Grid>,
+            ]))}
+            </Grid>
+          </Box>
+        </div>
+
+        <div>        
+          Discard: 
+          <ButtonGroup variant="contained" aria-label="outlined button group">
+            <Button value="red" onClick={removeMarble}>{marbleIcons["red"]}</Button>
+            <Button value="yellow" onClick={removeMarble}>{marbleIcons["yellow"]}</Button>
+            <Button value="blue" onClick={removeMarble}>{marbleIcons["blue"]}</Button>
+            <Button value="white" onClick={removeMarble}>{marbleIcons["white"]}</Button>
+            <Button value="black" onClick={removeMarble}>{marbleIcons["black"]}</Button>
+            <Button value="randomize" onClick={updateAllocation}>Randomize</Button>
+          </ButtonGroup>
+
+        </div>
+
+        <div>
+          <FormControl>
+            <RadioGroup row name="player-count" onChange={updateMarbleCount} defaultValue="2p">
+              <FormControlLabel value="2p" control={<Radio />} label="2p (10)" />
+              <FormControlLabel value="3p" control={<Radio />} label="3p (12)"  />
+              <FormControlLabel value="4p" control={<Radio />} label="4p (14)" />
+            </RadioGroup>
+          </FormControl>
+        </div>
+
+       
+
       </div>
-
-     
-
-    <div>
-    <FormControl>
-      <RadioGroup row name="player-count" onChange={updateMarbleCount} defaultValue="2p">
-        <FormControlLabel value="2p" control={<Radio />} label="2p (10)" />
-        <FormControlLabel value="3p" control={<Radio />} label="3p (12)"  />
-        <FormControlLabel value="4p" control={<Radio />} label="4p (14)" />
-      </RadioGroup>
-    </FormControl>
+    </header>                    
     </div>
-    <div>        
-        Discard: 
-        <ButtonGroup variant="contained" aria-label="outlined button group">
-          <Button value="red" onClick={removeMarble}>{marbleIcons["red"]}</Button>
-          <Button value="yellow" onClick={removeMarble}>{marbleIcons["yellow"]}</Button>
-          <Button value="blue" onClick={removeMarble}>{marbleIcons["blue"]}</Button>
-          <Button value="white" onClick={removeMarble}>{marbleIcons["white"]}</Button>
-          <Button value="black" onClick={removeMarble}>{marbleIcons["black"]}</Button>
-          <Button onClick={updateAllocation}>Randomize</Button>
-        </ButtonGroup>
-      </div>
-  </div>
+
   );
 };
 
-export default Controls;
+export default Golem;
