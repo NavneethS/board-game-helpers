@@ -19,6 +19,12 @@ function App() {
           </ListItem>
 
           <ListItem disablePadding>
+            <ListItemButton component="a" href="/brux">
+              <ListItemText primary="Bruxelles 1897 setup randomizer"/>
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem disablePadding>
             <ListItemButton component="a">
               <ListItemText primary="Gaia Project setup randomizer ??"/>
             </ListItemButton>
