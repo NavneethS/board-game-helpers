@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/board-game-helpers/static/css/main.74022b13.css",
+    "main.js": "/board-game-helpers/static/js/main.fd0fe229.js",
+    "index.html": "/board-game-helpers/index.html",
+    "main.74022b13.css.map": "/board-game-helpers/static/css/main.74022b13.css.map",
+    "main.fd0fe229.js.map": "/board-game-helpers/static/js/main.fd0fe229.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.74022b13.css",
+    "static/js/main.fd0fe229.js"
+  ]
+}
