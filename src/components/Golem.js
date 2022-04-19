@@ -8,6 +8,21 @@ import Button from '@mui/material/Button';
 import '../App.css';
 import Grid from '@mui/material/Grid';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import Fab from '@mui/material/Fab';
+import HelpIcon from '@mui/icons-material/Help';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: '#282c34',
+  p: 4,
+  color: 'white',
+};
 
 const actions = [
   {id:1, image:"assets/action1.png"},
@@ -34,6 +49,9 @@ function makeIcons(colors) {
 const Golem = () => {
   const [marblePool, setMarblePool] = useState(initMarblePool);
   const [marbleAllocation, setMarbleAllocation] = useState({1: [], 2: [], 3: [], 4: [], 5: []});
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
 
   const updateMarbleCount = (event, value) => {
     var newMarblePool;
@@ -120,7 +138,6 @@ const Golem = () => {
             <Button value="blue" onClick={removeMarble}>{marbleIcons["blue"]}</Button>
             <Button value="white" onClick={removeMarble}>{marbleIcons["white"]}</Button>
             <Button value="black" onClick={removeMarble}>{marbleIcons["black"]}</Button>
-            <Button value="randomize" onClick={updateAllocation}>Randomize</Button>
           </ButtonGroup>
 
         </div>
@@ -132,10 +149,29 @@ const Golem = () => {
               <FormControlLabel value="3p" control={<Radio />} label="3p (12)"  />
               <FormControlLabel value="4p" control={<Radio />} label="4p (14)" />
             </RadioGroup>
+            <Button value="randomize" variant="contained" onClick={updateAllocation}>Randomize</Button>
           </FormControl>
         </div>
 
-       
+        <div>
+          <Fab size="small" color="primary" onClick={handleOpenModal}>
+            <HelpIcon />
+          </Fab>
+          <Modal open={openModal} onClose={handleCloseModal} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+            <Box sx={style}>
+            <Typography variant="h6" component="h2">Golem action marble randomizer</Typography>
+            <Typography sx={{ mt: 2 }}>
+              Select number of players and click "Randomize" to collect required number of marbles and distribute them.
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              Click on Discard marble to remove it from the selection and "Randomize" to redistribute. To reset all marbles, select player count again.
+            </Typography>
+            <Typography sx={{ mt: 2 }}>
+              Credits go here
+            </Typography>
+            </Box>
+          </Modal>
+        </div>
 
       </div>
     </header>                    
