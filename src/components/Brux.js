@@ -56,7 +56,6 @@ const Brux = () => {
     }
     
     setCards(newCards);
-    console.log(newCards)
 
   }
 
