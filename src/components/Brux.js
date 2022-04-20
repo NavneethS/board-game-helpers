@@ -63,6 +63,15 @@ const Brux = () => {
     <div className='App'>
       <header className="App-header">
         <div className='Action-Grid'>
+
+        <div>        
+            <ButtonGroup variant="contained" aria-label="outlined button group">
+              <Button value="2p" onClick={updateLayout}>2p</Button>
+              <Button value="3p" onClick={updateLayout}>3p</Button>
+              <Button value="4p" onClick={updateLayout}>4p</Button>
+            </ButtonGroup>
+          </div>
+          
           <div>
             <Grid container spacing={1} >
               {
@@ -71,7 +80,7 @@ const Brux = () => {
                     {
                       [0,1,2,3].map(y => (
                         <Grid item key={y}>
-                          <Paper sx={{height: 140, width: 100, backgroundColor: colors[cards[4*x+y]]}}/>
+                          <Paper sx={{height: 105, width: 75, backgroundColor: colors[cards[4*x+y]]}}/>
                         </Grid>
                       ))
                     }
@@ -81,13 +90,7 @@ const Brux = () => {
             </Grid>
           </div>
 
-          <div>        
-            <ButtonGroup variant="contained" aria-label="outlined button group">
-              <Button value="2p" onClick={updateLayout}>2p</Button>
-              <Button value="3p" onClick={updateLayout}>3p</Button>
-              <Button value="4p" onClick={updateLayout}>4p</Button>
-            </ButtonGroup>
-          </div>
+       
         </div>
 
     </header>                    

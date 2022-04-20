@@ -112,17 +112,16 @@ const Golem = () => {
       <header className="App-header">
 
       <div className="Action-Grid" >
-        <div>Pool: {makeIcons(marblePool)}</div>
         <div>
           <Box sx={{ width: '100%', backgroundColor: '#ADA676'}}>
             <Grid container spacing={0} >
             {
               actions
               .map(action => ([
-                <Grid key={action.id+"image"} item xs={6} >
+                <Grid key={action.id+"image"} item xs={6}>
                     <img src={action.image} className="Action" alt='action'/>
                 </Grid>,
-                <Grid key={action.id+"marbles"} item xs={6} className="Marble">
+                <Grid key={action.id+"marbles"} item xs={6} className="Marble" sx={{border:2, borderColor:"gray"}}>
                     {makeIcons(marbleAllocation[action.id])}
                 </Grid>,
             ]))}
@@ -131,7 +130,7 @@ const Golem = () => {
         </div>
 
         <div>        
-          Discard: 
+          Select marble to discard: 
           <ButtonGroup variant="contained" aria-label="outlined button group">
             <Button value="red" onClick={removeMarble}>{marbleIcons["red"]}</Button>
             <Button value="yellow" onClick={removeMarble}>{marbleIcons["yellow"]}</Button>
@@ -139,6 +138,7 @@ const Golem = () => {
             <Button value="white" onClick={removeMarble}>{marbleIcons["white"]}</Button>
             <Button value="black" onClick={removeMarble}>{marbleIcons["black"]}</Button>
           </ButtonGroup>
+          <div>Discarded marbles: {makeIcons(marblePool)}</div>
 
         </div>
 
@@ -161,13 +161,9 @@ const Golem = () => {
             <Box sx={style}>
             <Typography variant="h6" component="h2">Golem action marble randomizer</Typography>
             <Typography sx={{ mt: 2 }}>
-              Select number of players and click "Randomize" to collect required number of marbles and distribute them.
-            </Typography>
-            <Typography sx={{ mt: 2 }}>
-              Click on Discard marble to remove it from the selection and "Randomize" to redistribute. To reset all marbles, select player count again.
-            </Typography>
-            <Typography sx={{ mt: 2 }}>
-              Credits go here
+              <p>Select number of players and click "Randomize" to collect required number of marbles and distribute them.</p>
+              <p>Click on marble button to discard it from the selection and "Randomize" to redistribute. To reset all marbles, select player count again.</p>
+              <p>Personal use only. Credit: Cranio Creations.</p>
             </Typography>
             </Box>
           </Modal>
