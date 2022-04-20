@@ -7,11 +7,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import '../App.css';
 import Grid from '@mui/material/Grid';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import Fab from '@mui/material/Fab';
-import HelpIcon from '@mui/icons-material/Help';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 
 const style = {
   position: 'absolute',
@@ -39,12 +39,6 @@ function randomize() {
   return Math.floor(Math.random()*5) + 1;
 }
 
-function makeIcons(colors) {
-  if (colors.length===0) {
-    return ""
-  }
-  return colors.map(x => marbleIcons[x]).join(" ")
-}
 
 const Golem = () => {
   const [marblePool, setMarblePool] = useState(initMarblePool);
@@ -87,26 +81,28 @@ const Golem = () => {
 
   }
 
-  const removeMarble = (event) => {
-    
-    const color = event.target.value
-    // Deep copy
+  function removeMarble(color, row) {
+    if (row===-1) {
+      return
+    }
     var newMarblePool = [...marblePool]
     var newMarbleAllocation = JSON.parse(JSON.stringify(marbleAllocation))
 
-    for (var i=1; i<=5; i++) {
-      for (var j=0; j<newMarbleAllocation[i].length; j++) {
-        if (newMarbleAllocation[i][j]===color) {
-          newMarbleAllocation[i].splice(j, 1)
-          newMarblePool.push(color)
-          setMarbleAllocation(newMarbleAllocation)
-          setMarblePool(newMarblePool)
-          return
-        }
-      } 
-    }
+    newMarbleAllocation[row].splice(newMarbleAllocation[row].indexOf(color), 1)
+    newMarblePool.push(color)
+    setMarbleAllocation(newMarbleAllocation)
+    setMarblePool(newMarblePool)
+    return
   }
 
+  function makeIcons(colors, action_id) {
+    return colors.map(x => (
+      <IconButton color='primary' style={{fontSize: '5vmin'}} onClick={() => removeMarble(x, action_id)}>
+        {marbleIcons[x]}
+      </IconButton>)
+    )
+  }
+  
   return (    
     <div className='App'>
       <header className="App-header">
@@ -118,11 +114,11 @@ const Golem = () => {
             {
               actions
               .map(action => ([
-                <Grid key={action.id+"image"} item xs={6}>
+                <Grid key={action.id+"image"} item xs={5} sx={{border:2, borderColor:"gray"}} >
                     <img src={action.image} className="Action" alt='action'/>
                 </Grid>,
-                <Grid key={action.id+"marbles"} item xs={6} className="Marble" sx={{border:2, borderColor:"gray"}}>
-                    {makeIcons(marbleAllocation[action.id])}
+                <Grid key={action.id+"marbles"} item xs={7} sx={{border:2, borderColor:"gray"}}>
+                    {makeIcons(marbleAllocation[action.id], action.id)}
                 </Grid>,
             ]))}
             </Grid>
@@ -130,16 +126,7 @@ const Golem = () => {
         </div>
 
         <div>        
-          Select marble to discard: 
-          <ButtonGroup variant="contained" aria-label="outlined button group">
-            <Button value="red" onClick={removeMarble}>{marbleIcons["red"]}</Button>
-            <Button value="yellow" onClick={removeMarble}>{marbleIcons["yellow"]}</Button>
-            <Button value="blue" onClick={removeMarble}>{marbleIcons["blue"]}</Button>
-            <Button value="white" onClick={removeMarble}>{marbleIcons["white"]}</Button>
-            <Button value="black" onClick={removeMarble}>{marbleIcons["black"]}</Button>
-          </ButtonGroup>
-          <div>Discarded marbles: {makeIcons(marblePool)}</div>
-
+          <div>Discarded marbles: {makeIcons(marblePool, -1)}</div>
         </div>
 
         <div>
@@ -155,14 +142,14 @@ const Golem = () => {
 
         <div>
           <Fab size="small" color="primary" onClick={handleOpenModal}>
-            <HelpIcon />
+            <HelpOutlineIcon />
           </Fab>
           <Modal open={openModal} onClose={handleCloseModal} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
             <Box sx={style}>
             <Typography variant="h6" component="h2">Golem action marble randomizer</Typography>
             <Typography sx={{ mt: 2 }}>
               <p>Select number of players and click "Randomize" to collect required number of marbles and distribute them.</p>
-              <p>Click on marble button to discard it from the selection and "Randomize" to redistribute. To reset all marbles, select player count again.</p>
+              <p>Click on marble to discard it from the selection and "Randomize" to redistribute. To reset all marbles, select player count again.</p>
               <p>Personal use only. Credit: Cranio Creations.</p>
             </Typography>
             </Box>
