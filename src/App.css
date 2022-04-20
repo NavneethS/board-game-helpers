@@ -5,8 +5,11 @@
 
 .Action {
   height: 70px;
-  width: 300px;  
-
+  width: 250px;  
+  padding: 0;
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 .App-header {
@@ -27,9 +30,13 @@
 }
 
 .Marble {
-  font-size: calc(30px + 2vmin);
+  font-size: 5vmin;
   justify-content: center;
-
+  padding: 0;
+  display: block;
+  margin: 0 auto;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .column {

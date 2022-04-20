@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 function Navigation() {
   return (
     <div className="navigation">
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <div className="container">
           <NavLink className="navbar-brand" to="/">
             Board game helper apps
