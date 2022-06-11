@@ -23,6 +23,12 @@ function App() {
               <ListItemText primary="Bruxelles 1897 setup randomizer"/>
             </ListItemButton>
           </ListItem>
+          
+          <ListItem disablePadding>
+            <ListItemButton component="a" href="/carnegie">
+              <ListItemText primary="Carnegie setup randomizer"/>
+            </ListItemButton>
+          </ListItem>
 
         </List>
 
